@@ -43,11 +43,11 @@ function love.update()
     end
 end
 function resetbold()
-	speedx=love.math.random(-6,6)
-		speedy=love.math.random(-6,6)
-	while speedx <= 3 and speedx >= -3 or speedy <= 3 and speedy >= -3 do
-		speedx=love.math.random(-6,6)
-		speedy=love.math.random(-6,6)
+	speedx=love.math.random(-7,7)
+		speedy=love.math.random(-7,7)
+	while speedx <= 4 and speedx >= -4 or speedy <= 4 and speedy >= -4 do
+		speedx=love.math.random(-7,7)
+		speedy=love.math.random(-7,7)
     end
     x = love.graphics.getWidth()/2-bold:getWidth()/2
     y = love.graphics.getHeight()/2
