@@ -3,35 +3,45 @@ function love.load()
     resetbold()
     ketcherv = love.graphics.newImage("ketcher.png")
     ketcherh = love.graphics.newImage("ketcher.png")
+    skalerketchery=(love.graphics.getHeight()/5)/ketcherv:getHeight()
+	skalerketcherx=(love.graphics.getWidth()/75)/ketcherv:getWidth()
     ketchervy=love.graphics.getHeight()/2-ketcherv:getHeight()/2
     ketcherhy=love.graphics.getHeight()/2-ketcherh:getHeight()/2
-    ketcherhx=love.graphics.getWidth()-ketcherh:getWidth()
+    ketcherhx=love.graphics.getWidth()-ketcherh:getWidth()*skalerketcherx
     pointv = 0
     pointh = 0
     ketcherspeed=7
+    love.window.setMode(0,0,{resizable=true,highdpi=true,--[[minwidth=800,minheight=600--]]})
+    --love.window.setFullscreen(true,"desktop")
+    love.mouse.setVisible(false)
 end
 function love.update()
-    x = speedx+x
-    y = speedy+y
+--	ketcherhy=y-ketcher:getHeight()*skalerketchery/2
+	skalerketchery=(love.graphics.getHeight()/5)/ketcherv:getHeight()
+	skalerketcherx=(love.graphics.getWidth()/75)/ketcherv:getWidth()
+	skalerbold=(love.graphics.getHeight()/40)/bold:getHeight()
+	skalerspeed=skalerbold
+    x = speedx*skalerspeed+x
+    y = speedy*skalerspeed+y
     if y >= love.graphics.getHeight()-bold:getHeight() or y <= 0 then
         speedy = -1*speedy
     end
-    if x <= ketcherv:getWidth() and y>ketchervy and y<ketchervy+ketcherv:getHeight() then
-         speedx = -1*speedx
+    if x <= ketcherv:getWidth()*skalerketcherx and y>ketchervy and y<ketchervy+ketcherv:getHeight()*skalerketchery then
+         speedx = -1.1*speedx
     end
-    if x >= ketcherhx-ketcherh:getWidth() and y>ketcherhy and y<ketcherhy+ketcherh:getHeight() then
-         speedx = -1*speedx
+    if x >= ketcherhx-ketcherh:getWidth()*skalerketcherx and y>ketcherhy and y<ketcherhy+ketcherh:getHeight()*skalerketchery then
+         speedx = -1.1*speedx
     end
     if love.keyboard.isDown("up") and ketcherhy > 0 then
         ketcherhy = ketcherhy - ketcherspeed
     end
-    if love.keyboard.isDown("down") and ketcherhy < love.graphics.getHeight() - ketcherh:getHeight()then
+    if love.keyboard.isDown("down") and ketcherhy < love.graphics.getHeight() - ketcherh:getHeight()*skalerketchery then
         ketcherhy = ketcherhy + ketcherspeed
     end
     if love.keyboard.isDown("w") and ketchervy > 0 then
         ketchervy = ketchervy - ketcherspeed
     end
-    if love.keyboard.isDown("s") and ketchervy < love.graphics.getHeight() - ketcherv:getHeight() then
+    if love.keyboard.isDown("s") and ketchervy < love.graphics.getHeight() - ketcherv:getHeight()*skalerketchery then
         ketchervy = ketchervy + ketcherspeed
     end
     if love.keyboard.isDown("r") then resetbold() end
@@ -57,13 +67,17 @@ function reset()
 	pointh=0
 end
 function love.draw()
-    love.graphics.draw(bold, x, y)
-    love.graphics.setBackgroundColor(86, 138, 200)
-    --love.graphics.print(speedx,0,0)
-    --love.graphics.print(speedy,0,10)
-    love.graphics.draw(ketcherv, 0, ketchervy)
-    love.graphics.draw(ketcherh, ketcherhx, ketcherhy)
+	love.graphics.line(love.graphics.getWidth()/2,0,love.graphics.getWidth()/2,love.graphics.getHeight())
+    love.graphics.setColor(237,255,0)
+    love.graphics.draw(bold, x, y,0,skalerbold,skalerbold)
+    love.graphics.draw(ketcherv, 0, ketchervy,0,skalerketcherx,skalerketchery)
+    love.graphics.draw(ketcherh, ketcherhx, ketcherhy,0,skalerketcherx,skalerketchery)
     love.graphics.print(pointv,love.graphics.getWidth()*0.25,0)
     love.graphics.print(pointh,love.graphics.getWidth()*0.75,0)
-    love.graphics.line(love.graphics.getWidth()/2,0,love.graphics.getWidth()/2,love.graphics.getHeight())
+    ketcherhx=love.graphics.getWidth()-ketcherh:getWidth()*skalerketcherx
+    love.graphics.setBackgroundColor(3, 168, 155)
+    love.graphics.print(speedx,0,0)
+    love.graphics.print(speedy,0,10)
+    love.graphics.print(love.graphics.getWidth(),0,20)
+    love.graphics.print(love.graphics.getHeight(),0,30)
 end
