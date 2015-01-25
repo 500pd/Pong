@@ -1,2 +1,5 @@
 *.app/
 *DS_Store
+*.exe
+*.love
+love-0.9.1-win64
