@@ -1,4 +1,5 @@
 function love.load()
+	paused = false
     bold = love.graphics.newImage("bold.png")
     resetbold()
     ketcherv = love.graphics.newImage("ketcher.png")
@@ -10,20 +11,27 @@ function love.load()
     ketcherhx=love.graphics.getWidth()-ketcherh:getWidth()*skalerketcherx
     pointv = 0
     pointh = 0
-    ketcherspeed=10
+    ketcherspeed=12
     love.window.setMode(0,0,{resizable=true,highdpi=true,--[[minwidth=800,minheight=600--]]})
     --love.window.setFullscreen(true,"desktop")
     love.mouse.setVisible(false)
     font = love.graphics.newFont("LukasSvatbaBoldOblique.ttf", 30)
+    pauset = false		--pause
 end
+
 function love.update()
+	if pause then
+		return
+	end
 --	ketcherhy=y-ketcher:getHeight()*skalerketchery/2
 	skalerketchery=(love.graphics.getHeight()/5)/ketcherv:getHeight()
 	skalerketcherx=(love.graphics.getWidth()/75)/ketcherv:getWidth()
 	skalerbold=(love.graphics.getHeight()/40)/bold:getHeight()
 	skalerspeed=skalerbold
-    x = speedx*skalerspeed+x
-    y = speedy*skalerspeed+y
+	if not pauset then
+    	x = speedx*skalerspeed+x
+    	y = speedy*skalerspeed+y
+    end
     if y >= love.graphics.getHeight()-bold:getHeight() or y <= 0 then
         speedy = -1*speedy
     end
@@ -53,6 +61,7 @@ function love.update()
         resetbold()
     end
 end
+
 function resetbold()
 	speedx=love.math.random(-7,7)
 		speedy=love.math.random(-7,7)
@@ -63,10 +72,23 @@ function resetbold()
     x = love.graphics.getWidth()/2-bold:getWidth()/2
     y = love.graphics.getHeight()/2
 end
+
 function reset()
 	pointv=0
 	pointh=0
 end
+
+function love.keypressed(pause)
+	if pause == "p" then pauset = true end
+	if pause ~= "p" then pauset = false end
+end
+
+function love.focus(f)
+	if not f then
+		pauset = true
+	end
+end
+
 function love.draw()
 	love.graphics.setFont(font)
 	love.graphics.line(love.graphics.getWidth()/2,0,love.graphics.getWidth()/2,love.graphics.getHeight())
@@ -78,8 +100,11 @@ function love.draw()
     love.graphics.print(pointh,love.graphics.getWidth()*0.75,0)
     ketcherhx=love.graphics.getWidth()-ketcherh:getWidth()*skalerketcherx
     love.graphics.setBackgroundColor(12, 50, 150)
-    --[[love.graphics.print(speedx,0,0)
-    love.graphics.print(speedy,0,10)
-    love.graphics.print(love.graphics.getWidth(),0,20)
-    love.graphics.print(love.graphics.getHeight(),0,30)--]]
+    if pauset then
+		love.graphics.print("Pauset", (love.graphics.getWidth()/2)-35)
+	end
+    --[[love.graphics.print(speedx,0,0)						--Hastighed på boldens X
+    love.graphics.print(speedy,0,10)						--og Y koordinat
+    love.graphics.print(love.graphics.getWidth(),0,20)		--Skærmens bredde
+    love.graphics.print(love.graphics.getHeight(),0,30)--]]	--og højde i pixels
 end
