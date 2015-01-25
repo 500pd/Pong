@@ -14,6 +14,7 @@ function love.load()
     love.window.setMode(0,0,{resizable=true,highdpi=true,--[[minwidth=800,minheight=600--]]})
     --love.window.setFullscreen(true,"desktop")
     love.mouse.setVisible(false)
+    font = love.graphics.newFont("LukasSvatbaBoldOblique.ttf", 30)
 end
 function love.update()
 --	ketcherhy=y-ketcher:getHeight()*skalerketchery/2
@@ -67,6 +68,7 @@ function reset()
 	pointh=0
 end
 function love.draw()
+	love.graphics.setFont(font)
 	love.graphics.line(love.graphics.getWidth()/2,0,love.graphics.getWidth()/2,love.graphics.getHeight())
     love.graphics.setColor(237,255,0)
     love.graphics.draw(bold, x, y,0,skalerbold,skalerbold)
@@ -76,8 +78,8 @@ function love.draw()
     love.graphics.print(pointh,love.graphics.getWidth()*0.75,0)
     ketcherhx=love.graphics.getWidth()-ketcherh:getWidth()*skalerketcherx
     love.graphics.setBackgroundColor(12, 50, 150)
-    love.graphics.print(speedx,0,0)
+    --[[love.graphics.print(speedx,0,0)
     love.graphics.print(speedy,0,10)
     love.graphics.print(love.graphics.getWidth(),0,20)
-    love.graphics.print(love.graphics.getHeight(),0,30)
+    love.graphics.print(love.graphics.getHeight(),0,30)--]]
 end
