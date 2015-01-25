@@ -75,7 +75,7 @@ function love.draw()
     love.graphics.print(pointv,love.graphics.getWidth()*0.25,0)
     love.graphics.print(pointh,love.graphics.getWidth()*0.75,0)
     ketcherhx=love.graphics.getWidth()-ketcherh:getWidth()*skalerketcherx
-    love.graphics.setBackgroundColor(3, 168, 155)
+    love.graphics.setBackgroundColor(12, 50, 150)
     love.graphics.print(speedx,0,0)
     love.graphics.print(speedy,0,10)
     love.graphics.print(love.graphics.getWidth(),0,20)
