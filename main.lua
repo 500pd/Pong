@@ -10,7 +10,7 @@ function love.load()
     ketcherhx=love.graphics.getWidth()-ketcherh:getWidth()*skalerketcherx
     pointv = 0
     pointh = 0
-    ketcherspeed=7
+    ketcherspeed=10
     love.window.setMode(0,0,{resizable=true,highdpi=true,--[[minwidth=800,minheight=600--]]})
     --love.window.setFullscreen(true,"desktop")
     love.mouse.setVisible(false)
@@ -33,16 +33,16 @@ function love.update()
          speedx = -1.1*speedx
     end
     if love.keyboard.isDown("up") and ketcherhy > 0 then
-        ketcherhy = ketcherhy - ketcherspeed
+        ketcherhy = ketcherhy - ketcherspeed*skalerspeed
     end
     if love.keyboard.isDown("down") and ketcherhy < love.graphics.getHeight() - ketcherh:getHeight()*skalerketchery then
-        ketcherhy = ketcherhy + ketcherspeed
+        ketcherhy = ketcherhy + ketcherspeed*skalerspeed
     end
     if love.keyboard.isDown("w") and ketchervy > 0 then
-        ketchervy = ketchervy - ketcherspeed
+        ketchervy = ketchervy - ketcherspeed*skalerspeed
     end
     if love.keyboard.isDown("s") and ketchervy < love.graphics.getHeight() - ketcherv:getHeight()*skalerketchery then
-        ketchervy = ketchervy + ketcherspeed
+        ketchervy = ketchervy + ketcherspeed*skalerspeed
     end
     if love.keyboard.isDown("r") then resetbold() end
     if love.keyboard.isDown("backspace") then reset() resetbold() end
@@ -55,7 +55,7 @@ end
 function resetbold()
 	speedx=love.math.random(-7,7)
 		speedy=love.math.random(-7,7)
-	while speedx <= 4 and speedx >= -4 or speedy <= 4 and speedy >= -4 do
+	while speedx <= 5 and speedx >= -5 or speedy <= 5 and speedy >= -5 do
 		speedx=love.math.random(-7,7)
 		speedy=love.math.random(-7,7)
     end
