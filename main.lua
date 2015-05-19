@@ -92,19 +92,21 @@ end
 function love.draw()
 	love.graphics.setFont(font)
 	love.graphics.line(love.graphics.getWidth()/2,0,love.graphics.getWidth()/2,love.graphics.getHeight())
-    love.graphics.setColor(237,255,0)
-    love.graphics.draw(bold, x, y,0,skalerbold,skalerbold)
-    love.graphics.draw(ketcherv, 0, ketchervy,0,skalerketcherx,skalerketchery)
-    love.graphics.draw(ketcherh, ketcherhx, ketcherhy,0,skalerketcherx,skalerketchery)
-    love.graphics.print(pointv,love.graphics.getWidth()*0.25,0)
-    love.graphics.print(pointh,love.graphics.getWidth()*0.75,0)
-    ketcherhx=love.graphics.getWidth()-ketcherh:getWidth()*skalerketcherx
-    love.graphics.setBackgroundColor(12, 50, 150)
-    if pauset then
-		love.graphics.print("Pauset", (love.graphics.getWidth()/2)-35)
+	love.graphics.setColor(237,255,0)
+	love.graphics.draw(bold, x, y,0,skalerbold,skalerbold)
+	love.graphics.draw(ketcherv, 0, ketchervy,0,skalerketcherx,skalerketchery)
+	love.graphics.draw(ketcherh, ketcherhx, ketcherhy,0,skalerketcherx,skalerketchery)
+	love.graphics.print(pointv,love.graphics.getWidth()*0.25,0)
+	love.graphics.print(pointh,love.graphics.getWidth()*0.75,0)
+	ketcherhx=love.graphics.getWidth()-ketcherh:getWidth()*skalerketcherx
+	love.graphics.setBackgroundColor(12, 50, 150)
+	if pauset then
+			love.graphics.print("Pauset", (love.graphics.getWidth()/2)-35)
 	end
-    --[[love.graphics.print(speedx,0,0)						--Hastighed på boldens X
-    love.graphics.print(speedy,0,10)						--og Y koordinat
-    love.graphics.print(love.graphics.getWidth(),0,20)		--Skærmens bredde
-    love.graphics.print(love.graphics.getHeight(),0,30)--]]	--og højde i pixels
+	--[[
+	love.graphics.print(speedx,0,0)					--Hastighed på boldens X
+	love.graphics.print(speedy,0,10)				--og Y koordinat
+	love.graphics.print(love.graphics.getWidth(),0,20)		--Skærmens bredde
+	love.graphics.print(love.graphics.getHeight(),0,30)		--og højde i pixels
+	--]]
 end
