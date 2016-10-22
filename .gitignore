@@ -1,6 +1,6 @@
 # *.app/
 *DS_Store
-# *.exe
+*.exe
 # *.love
 *-win64
-*-win32
+# *-win32
