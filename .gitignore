@@ -2,4 +2,5 @@
 *DS_Store
 *.exe
 *.love
-love-0.9.1-win64
+*-win64
+*-win32
