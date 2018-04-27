@@ -9,22 +9,31 @@ function love.load()
 	ketchervy = love.graphics.getHeight()/2 - ketcherv:getHeight()/2
 	ketcherhy = love.graphics.getHeight()/2 - ketcherh:getHeight()/2
 	ketcherhx = love.graphics.getWidth() - ketcherh:getWidth()*skalerketcherx
-	--pointv = 0 -- sætter venstres point til 0
-	--pointh = 0 -- sætter højres point til 0
+	pointv = 0 -- sætter venstres point til 0
+	pointh = 0 -- sætter højres point til 0
 	ketcherspeed = 12 -- sætter ketcherens hastighed
 	love.window.setMode(0,0,{resizable = true, highdpi = true,--[[minwidth=800,minheight=600--]]}) -- lader vinduets størrelse blive ændret
 	-- love.window.setFullscreen(true, "desktop") -- start i fuldskærm
 	love.mouse.setVisible(true)
 	font = love.graphics.newFont("LukasSvatbaBoldOblique.ttf", 30) -- sætter skrifttypen
 	--pauset = true --start pauset
-	touches = love.touch.getTouches()
+	--touches = love.touch.getTouches() -- indlæs touch
+	skalerbold = (love.graphics.getHeight()/40)/bold:getHeight()
+	skalerspeed = skalerbold
 end
 
 function love.update()
 	if pause then
 		return
 	end
-	ketchervy = y-ketcherv:getHeight()*skalerketchery/2 -- Få venstre ketcher til at følge boldens y-koordinat
+	if x < love.graphics.getWidth()/3 then
+		if y > ketchervy then
+			ketchervy = ketchervy+(ketcherspeed*skalerspeed) -- får ketcherv til at følge bolden, hvis bolden er over
+		end
+		if y < ketchervy then
+			ketchervy = ketchervy-(ketcherspeed*skalerspeed) -- får ketcherv til at følge bolden, hvis bolden er under
+		end
+	end
 	if ketchervy < 0 then
 		ketchervy = 0
 	end
@@ -33,11 +42,11 @@ function love.update()
 	end
 	skalerketchery = (love.graphics.getHeight()/5)/ketcherv:getHeight()
 	skalerketcherx = (love.graphics.getWidth()/75)/ketcherv:getWidth()
-	skalerbold = (love.graphics.getHeight()/40)/bold:getHeight()
-	skalerspeed = skalerbold
+	--skalerbold = (love.graphics.getHeight()/40)/bold:getHeight()
+	--skalerspeed = skalerbold
 	if not pauset then
-		x = speedx*skalerspeed+x
-		y = speedy*skalerspeed+y
+		x = speedx*skalerspeed+x -- Boldens x-koordinat
+		y = speedy*skalerspeed+y -- Boldens y-koordinat
 	end
 	if y >= love.graphics.getHeight()-bold:getHeight() or y <= 0 then
 		speedy = -1*speedy
@@ -62,7 +71,7 @@ function love.update()
 	end
 	if touchY and touchY >= love.graphics.getHeight()/2 then
 		ketcherhy = ketcherhy + ketcherspeed*skalerspeed
-	end--]]
+	end--]] -- touch ting
 	--[[
 	if love.keyboard.isDown("left") and ketcherhx > love.graphics.getWidth()/2 then
 		ketcherhx = ketcherhx - ketcherspeed*skalerspeed
@@ -136,10 +145,10 @@ function love.draw()
 		love.graphics.print("Pauset", (love.graphics.getWidth()/2)-35)
 	end
 	--
-	for i, id in ipairs(touches) do
+	--[[for i, id in ipairs(touches) do
 		local x, y = love.touch.getPosition(id)
 		love.graphics.circle("fill", x, y, 20)
-	end
+	end--]] -- touch ting
 	--
 
 	--[[
